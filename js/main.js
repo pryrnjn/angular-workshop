@@ -6,7 +6,7 @@ app.run(function ($rootScope) {
     $rootScope.authorName = "PriyaRanjan";
 });
 
-app.controller("ParentController", function ($scope, $http) {
+app.controller("ParentController", function ($scope) {
     $scope.name = "Parent";
     $scope.showName = function () {
         alert($scope.name);
@@ -16,7 +16,7 @@ app.controller("ParentController", function ($scope, $http) {
     };
 });
 
-app.controller("ChildController", function ($scope, $http) {
+app.controller("ChildController", function ($scope) {
     $scope.name = "Child";
     $scope.showName = function () {
         alert($scope.name);
@@ -24,5 +24,18 @@ app.controller("ChildController", function ($scope, $http) {
     $scope.changeName = function () {
         $scope.name += " changed";
     };
+
+});
+
+app.controller("MyController", function ($scope, $http) {
+    $scope.userId;
+    $scope.fetchData = function () {
+        $http.get("https://api.github.com/users/pryrnjn")
+            .then(function(response){
+                console.log(JSON.stringify(response));
+                $scope.userId = response.data.id;
+            });
+    };
+    $scope.fetchData();
 
 });
